@@ -127,19 +127,13 @@ encodeName string = map (switchStuff) string
 
 -- = 12 = --
 
-dotAdder :: String -> String
-dotAdder string
-    | length string == 0 = string ++ ".........."
-    | length string == 1 = string ++ "........."
-    | length string == 2 = string ++ "........"
-    | length string == 3 = string ++ "......."
-    | length string == 4 = string ++ "......"
-    | length string == 5 = string ++ "....."
-    | length string == 6 = string ++ "...."
-    | length string == 7 = string ++ "..."
-    | length string == 8 = string ++ ".."
-    | length string == 9 = string ++ "."
-    | otherwise = string
+-- funções auxiliares
+recursiveDotAdder :: String -> String
+recursiveDotAdder string = if length string < 10 then recursiveDotAdder (string ++ ".") else string
 
+charRemover :: String -> String
+charRemover string = take 10 string
+
+-- função principal
 giveMe10Chars :: [String] -> [String]
-giveMe10Chars strings = map (dotAdder) strings
+giveMe10Chars strings = map (\s -> if length s <= 10 then recursiveDotAdder s else charRemover s) strings

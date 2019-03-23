@@ -1,6 +1,8 @@
 -- Trabalho 1 de Paradígmas da Programação
 -- Por: Augusto Gai Dal'Asta
 
+import Data.Char (toLower, toUpper)
+
 -- = 1 = --
 
 isVowel :: Char -> Bool
@@ -87,3 +89,18 @@ lastName string = reverseName (cutLastName (reverseName (string)))
 
 
 -- = 9 = --
+
+-- funções auxiliares
+charToString :: Char -> String
+charToString c = [c]
+
+-- filtro para que não passem alguns nicks bizarros como "adal'asta"
+anomalyFilter :: String -> String 
+anomalyFilter string = filter (\c -> c == 'a' || c == 'b' || c == 'c' || c == 'd' || c == 'e' || c == 'f' || c == 'g' || c == 'h' || c == 'i' || c == 'j' || c == 'k' || c == 'l' || c == 'm' || c == 'n' || c == 'o' || c == 'p' || c == 'q' || c == 'r' || c == 's' || c == 't' || c == 'u' || c == 'v' || c == 'w' || c == 'x' || c == 'y' || c == 'z') string
+
+-- função principal
+nickNameGenerator :: String -> String
+nickNameGenerator string = anomalyFilter (map (toLower) (charToString (head string) ++ lastName string))
+
+
+-- = 10 = --

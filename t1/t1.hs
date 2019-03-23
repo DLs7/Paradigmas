@@ -121,3 +121,25 @@ switchStuff c
 
 encodeName :: String -> String
 encodeName string = map (switchStuff) string
+
+-- = 11 = --
+
+
+-- = 12 = --
+
+dotAdder :: String -> String
+dotAdder string
+    | length string == 0 = string ++ ".........."
+    | length string == 1 = string ++ "........."
+    | length string == 2 = string ++ "........"
+    | length string == 3 = string ++ "......."
+    | length string == 4 = string ++ "......"
+    | length string == 5 = string ++ "....."
+    | length string == 6 = string ++ "...."
+    | length string == 7 = string ++ "..."
+    | length string == 8 = string ++ ".."
+    | length string == 9 = string ++ "."
+    | otherwise = string
+
+giveMe10Chars :: [String] -> [String]
+giveMe10Chars strings = map (dotAdder) strings

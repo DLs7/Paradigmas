@@ -68,3 +68,22 @@ firstName string = takeWhile (\c -> c /= ' ') string
 
 isInt :: String -> Bool
 isInt string = if length (filter (\c -> c /= '0' && c /= '1' && c /= '2' && c /= '3' && c /= '4' && c /= '5' && c /= '6' && c /= '7' && c /= '8' && c /= '9') string) == 0 then True else False
+
+
+-- = 8 = --
+
+-- funções auxiliares
+reverseName :: String -> String
+reverseName = foldl (flip(:)) []
+
+cutLastName :: String -> String
+cutLastName string = takeWhile (\c -> c /= ' ') string
+
+-- função principal
+-- mesmo princípio da função firstName, porém reverto a string para começar do fim até o último espaço
+-- após cortar essa string invertida no ultimo espaço da original, inverto ela de novo para voltar ao estado original
+lastName :: String -> String
+lastName string = reverseName (cutLastName (reverseName (string)))
+
+
+-- = 9 = --

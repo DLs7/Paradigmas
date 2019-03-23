@@ -1,7 +1,8 @@
 -- Trabalho 1 de Paradígmas da Programação
 -- Por: Augusto Gai Dal'Asta
 
-import Data.Char (toLower, toUpper)
+import Data.Char
+import Data.List
 
 -- = 1 = --
 
@@ -105,6 +106,7 @@ nickNameGenerator string = anomalyFilter (map (toLower) (charToString (head stri
 
 -- = 10 = --
 
+-- função auxiliar
 switchStuff :: Char -> Char
 switchStuff c
     | c == 'A' = '4'
@@ -119,11 +121,30 @@ switchStuff c
     | c == 'u' = '0'
     | otherwise = c
 
+-- função principal
 encodeName :: String -> String
 encodeName string = map (switchStuff) string
 
 -- = 11 = --
 
+-- função auxiliar
+betterSwitcherOfStuff :: Char -> String
+betterSwitcherOfStuff c
+    | c == 'A' = "4"
+    | c == 'E' = "3"
+    | c == 'I' = "1"
+    | c == 'O' = "0"
+    | c == 'U' = "00"
+    | c == 'a' = "4"
+    | c == 'e' = "3"
+    | c == 'i' = "1"
+    | c == 'o' = "0"
+    | c == 'u' = "00"
+    | otherwise = [c]
+
+-- função principal
+betterEncodeName :: String -> String
+betterEncodeName string = concatMap (\c -> betterSwitcherOfStuff (c)) string
 
 -- = 12 = --
 

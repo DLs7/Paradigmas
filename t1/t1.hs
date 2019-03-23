@@ -104,3 +104,20 @@ nickNameGenerator string = anomalyFilter (map (toLower) (charToString (head stri
 
 
 -- = 10 = --
+
+switchStuff :: Char -> Char
+switchStuff c
+    | c == 'A' = '4'
+    | c == 'E' = '3'
+    | c == 'I' = '2'
+    | c == 'O' = '1'
+    | c == 'U' = '0'
+    | c == 'a' = '4'
+    | c == 'e' = '3'
+    | c == 'i' = '2'
+    | c == 'o' = '1'
+    | c == 'u' = '0'
+    | otherwise = c
+
+encodeName :: String -> String
+encodeName string = map (switchStuff) string

@@ -1,4 +1,83 @@
 :q
+betterEncodeName "This exercise was basically leet speak but hard"
+betterEncodeName "Augusto Gai Dal'Asta"
+:load t1.hs
+betterEncodeName "Augusto Gai Dal'Asta"
+:load t1.hs
+:load t1.hs
+:q
+:load t1.hs
+:load t1.hs
+:load t1.hs
+:load t1.hs
+:load t1.hs
+:load t1.hs
+:load t1.hs
+betterEncodeName "Augusto"
+:load t1.hs
+:q
+giveMe10Chars ["Paralelepipedo", "Haskell", "pfv", "me", "ajuda"]
+["Paralelepipedo", "Haskell", "pfv", "me", "ajuda"]
+:reload
+:reload
+:reload
+recursiveDotAdder "Haskell"
+:load t1.hs
+recursiveDotAdder "Haskell"
+recursiveDotAdder ["Haskell", "did", "I", "make", "this", "code", "right?"]
+:load t1.hs
+:load t1.hs
+:load t1.hs
+:load t1.hs
+:q
+giveMe10Chars ["", "Quero10chs"]
+giveMe10Chars ["Haskell", "please", "help", "me", "out", "with", "this", "one"]
+:load t1.hs
+:load t1.hs
+:q
+encodeName "Augusto Gai Dal'Asta"
+:load t1.hs
+:q
+nickNameGenerator "Augusto Gai Dal'Asta"
+anomalyFilter "Dal'Asta"
+:reload
+anomalyFilter "Dal'Asta"
+nickNameGenerator "Augusto Gai Dal'Asta"
+:reload
+:reload
+:reload
+convertString "Augusto Gai Dalasta"
+:reload
+:reload
+convertString "Augusto Gai Dalasta"
+converString "Augusto Gai Dalasta"
+:reload
+:reload
+:reload
+nickNameGenerator "Augusto Gai Dalasta"
+nickNameGenerator "Augusto Gai Dalasta
+:reload
+:reload
+:reload
+:reload
+nickNameGenerator "Augusto Gai Dal'Asta"
+:reload
+:reload
+:reload
+:reload
+:load t1.hs
+:q
+lastName "Augusto Gai Dal'Asta"
+:reload
+:reload
+lastName "Augusto Gai Dal'Asta"
+lastName "Augusto Gai Dal'Asta
+:reload
+reverseName "Augusto"
+:load t1.hs
+:load t1.hs
+:q
+:q
 isInt "10"
 isInt "10a"
 :reload
@@ -19,34 +98,3 @@ noVowel1 "Augusto"
 :reload
 :reload
 :reload
-:reload
-:reload
-:reload
-:reload
-:reload
-:reload
-noVowel "Augusto"
-noVowel "Augusto'
-:reload
-:reload
-noVowel "Augusto"
-noVowel "Augusto'
-:reload
-:reload
-htmlListItems1 ["Teste", "Teste1", "Teste2"]
-htmlListItems1 "Teste"
-:reload
-:reload
-addComma ["Teste", "Teste1", "Teste2"]
-:reload
-:reload
-isVowel 'A'
-isVowel 'b'
-isVowel 'a'
-:reload
-isVowel 'a'
-:reload
-isVowel 'a'
-isVowel a
-:load t1.hs
-:q

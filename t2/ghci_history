@@ -1,0 +1,100 @@
+:q
+genCase2
+:load t2.hs
+genCase2
+:load t2.hs
+genCase2
+:load t2.hs
+genCase2
+:load t2.hs
+genCase2
+:load t2.hs
+:load t2.hs
+genCase2
+:load t2.hs
+genCase2
+:load t2.hs
+genCase2
+:load t2.hs
+:load t2.hs
+:! cls
+:load t2.hs
+getPosCirc 50
+:! cls
+getPosCirc 50
+:load t2.hs
+:! cls
+getPosCirc 50
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+rgbBigPalette 1
+:! cls
+rgbBigPalette 1
+rbgBigPalette 1
+:load t2.hs
+getPosCirc 50
+:! cls
+getPosCirc 50
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+getPosCirc 50
+:load t2.hs
+getPosCirc 50
+:load t2.hs
+:! cls
+getPosCirc 50
+:load t2.hs
+:! cls
+getPosCirc 50
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+rgbBigPalette 1
+rgbBigPalette 12
+:load t2.hs
+rgbBigPalette 12
+:! cls
+rgbBigPalette 12
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+genCircs (getPosCirc 50)
+genCircs 50
+:load t2.hs
+:! cls
+genCase1
+:load t2.hs
+:load t2.hs
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs
+:! cls
+:load t2.hs

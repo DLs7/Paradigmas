@@ -46,11 +46,15 @@ convertHSVtoRGB (h,s,v)
 -- dadas coordenadas e dimensoes do retângulo e uma string com atributos de estilo
 svgRect :: Rect -> String -> String 
 svgRect ((x,y),w,h) style = 
-  printf "<rect x='%.3f' y='%.3f' width='%.2f' height='%.2f' style='%s' />" x y w h style
+  printf "<rect x='%.3f' y='%.3f' width='%.2f' height='%.2f' style='%s'/>" x y w h style
 
 svgCircle :: Circle -> String -> String
 svgCircle ((x,y),r) style =
-  printf "<circle cx='%.3f' cy='%.3f' r='%.2f' style='%s' />" x y r style
+  printf "<circle cx='%.3f' cy='%.3f' r='%.2f' style='%s'/>" x y r style
+
+svgCircle' :: Circle -> String -> String
+svgCircle' ((x,y),r) style =
+  printf "   <circle cx='%.3f' cy='%.3f' r='%.2f' style='%s'/>\n" x y r style
 
 -- String inicial do SVG
 svgBegin :: Float -> Float -> String
@@ -63,7 +67,7 @@ svgEnd = "</svg>"
 -- Gera string com atributos de estilo para uma dada cor
 -- Atributo mix-blend-mode permite misturar cores
 svgStyle :: (Int,Int,Int) -> String
-svgStyle (r,g,b) = printf "fill:rgb(%d,%d,%d); mix-blend-mode: screen;'/>" r g b
+svgStyle (r,g,b) = printf "fill:rgb(%d,%d,%d); mix-blend-mode: screen;" r g b
 
 -- Gera strings SVG para uma dada lista de figuras e seus atributos de estilo
 -- Recebe uma funcao geradora de strings SVG, uma lista de círculos/retângulos e strings de estilo
@@ -134,7 +138,7 @@ circlePiramidMatrix lin col =
 genCase3 :: IO()
 genCase3 = do
   writeFile "case3.svg" $ svgstr3
-  where svgstr3 = svgBegin w h ++ svgElements svgCircle (circlePiramidMatrix l c) (map svgStyle (rgbPalette(l*c*3))) ++ svgEnd
+  where svgstr3 = svgBegin w h ++ svgElements svgCircle' (circlePiramidMatrix l c) (map svgStyle (rgbPalette(l*c*3))) ++ svgEnd
         (w, h) = (1500, 500)
         r = 50
         l = 2

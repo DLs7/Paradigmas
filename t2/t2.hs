@@ -54,11 +54,11 @@ svgCircle ((x,y),r) style =
 
 -- String inicial do SVG
 svgBegin :: Float -> Float -> String
-svgBegin w h = printf "<html>\n<body>\n\n<h1>Programming Paradigms</h1>\n\n<svg width='%.2f' height='%.2f' xmlns='http://www.w3.org/2000/svg'>\n" w h 
+svgBegin w h = printf "<svg width='%.2f' height='%.2f' xmlns='http://www.w3.org/2000/svg'>\n" w h 
 
 -- String final do SVG
 svgEnd :: String
-svgEnd = "</svg>\n\n</body>\n</html>"
+svgEnd = "</svg>"
 
 -- Gera string com atributos de estilo para uma dada cor
 -- Atributo mix-blend-mode permite misturar cores

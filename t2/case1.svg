@@ -1,0 +1,60 @@
+<html>
+<body>
+
+<h1>Programming Paradigms</h1>
+
+<svg width='1500.00' height='500.00' xmlns='http://www.w3.org/2000/svg'>
+  <rect x='0.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,70,0); mix-blend-mode: screen;'/>' />
+  <rect x='60.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,80,0); mix-blend-mode: screen;'/>' />
+  <rect x='120.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,90,0); mix-blend-mode: screen;'/>' />
+  <rect x='180.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,100,0); mix-blend-mode: screen;'/>' />
+  <rect x='240.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,110,0); mix-blend-mode: screen;'/>' />
+  <rect x='300.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,120,0); mix-blend-mode: screen;'/>' />
+  <rect x='360.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,130,0); mix-blend-mode: screen;'/>' />
+  <rect x='420.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,140,0); mix-blend-mode: screen;'/>' />
+  <rect x='480.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,150,0); mix-blend-mode: screen;'/>' />
+  <rect x='540.000' y='0.000' width='50.00' height='50.00' style='fill:rgb(0,160,0); mix-blend-mode: screen;'/>' />
+  <rect x='0.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,90,0); mix-blend-mode: screen;'/>' />
+  <rect x='60.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,100,0); mix-blend-mode: screen;'/>' />
+  <rect x='120.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,110,0); mix-blend-mode: screen;'/>' />
+  <rect x='180.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,120,0); mix-blend-mode: screen;'/>' />
+  <rect x='240.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,130,0); mix-blend-mode: screen;'/>' />
+  <rect x='300.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,140,0); mix-blend-mode: screen;'/>' />
+  <rect x='360.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,150,0); mix-blend-mode: screen;'/>' />
+  <rect x='420.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,160,0); mix-blend-mode: screen;'/>' />
+  <rect x='480.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,170,0); mix-blend-mode: screen;'/>' />
+  <rect x='540.000' y='90.000' width='50.00' height='50.00' style='fill:rgb(0,180,0); mix-blend-mode: screen;'/>' />
+  <rect x='0.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,110,0); mix-blend-mode: screen;'/>' />
+  <rect x='60.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,120,0); mix-blend-mode: screen;'/>' />
+  <rect x='120.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,130,0); mix-blend-mode: screen;'/>' />
+  <rect x='180.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,140,0); mix-blend-mode: screen;'/>' />
+  <rect x='240.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,150,0); mix-blend-mode: screen;'/>' />
+  <rect x='300.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,160,0); mix-blend-mode: screen;'/>' />
+  <rect x='360.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,170,0); mix-blend-mode: screen;'/>' />
+  <rect x='420.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,180,0); mix-blend-mode: screen;'/>' />
+  <rect x='480.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,190,0); mix-blend-mode: screen;'/>' />
+  <rect x='540.000' y='180.000' width='50.00' height='50.00' style='fill:rgb(0,200,0); mix-blend-mode: screen;'/>' />
+  <rect x='0.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,130,0); mix-blend-mode: screen;'/>' />
+  <rect x='60.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,140,0); mix-blend-mode: screen;'/>' />
+  <rect x='120.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,150,0); mix-blend-mode: screen;'/>' />
+  <rect x='180.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,160,0); mix-blend-mode: screen;'/>' />
+  <rect x='240.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,170,0); mix-blend-mode: screen;'/>' />
+  <rect x='300.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,180,0); mix-blend-mode: screen;'/>' />
+  <rect x='360.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,190,0); mix-blend-mode: screen;'/>' />
+  <rect x='420.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,200,0); mix-blend-mode: screen;'/>' />
+  <rect x='480.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,210,0); mix-blend-mode: screen;'/>' />
+  <rect x='540.000' y='270.000' width='50.00' height='50.00' style='fill:rgb(0,220,0); mix-blend-mode: screen;'/>' />
+  <rect x='0.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,150,0); mix-blend-mode: screen;'/>' />
+  <rect x='60.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,160,0); mix-blend-mode: screen;'/>' />
+  <rect x='120.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,170,0); mix-blend-mode: screen;'/>' />
+  <rect x='180.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,180,0); mix-blend-mode: screen;'/>' />
+  <rect x='240.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,190,0); mix-blend-mode: screen;'/>' />
+  <rect x='300.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,200,0); mix-blend-mode: screen;'/>' />
+  <rect x='360.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,210,0); mix-blend-mode: screen;'/>' />
+  <rect x='420.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,220,0); mix-blend-mode: screen;'/>' />
+  <rect x='480.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,230,0); mix-blend-mode: screen;'/>' />
+  <rect x='540.000' y='360.000' width='50.00' height='50.00' style='fill:rgb(0,240,0); mix-blend-mode: screen;'/>' />
+</svg>
+
+</body>
+</html>

@@ -64,33 +64,24 @@ svgEnd = "</svg>"
 -- Atributo mix-blend-mode permite misturar cores
 svgStyle :: (Int,Int,Int) -> String
 svgStyle (r,g,b) = printf "fill:rgb(%d,%d,%d); mix-blend-mode: screen;'/>" r g b
-
--- Gera strings SVG para uma dada lista de figuras e seus atributos de estilo
--- Recebe uma funcao geradora de strings SVG, uma lista de círculos/retângulos e strings de estilo
-svgElements :: (a -> String -> String) -> [a] -> [String] -> String
-svgElements func elements styles = concat $ zipWith func elements styles
   
 -------------------------------------------------------------------------------
 -- Caso 1
 -------------------------------------------------------------------------------
 
 genRectsInLine :: Int -> Int -> [Rect]
-genRectsInLine n c =
-  [((m*(w+gap),(fromIntegral c)*(h+(4*gap))),w,h) | m <- [0..fromIntegral (n-1)]]
-    where (w,h) = (50,50)
-          gap = 10
+genRectsInLine n c = [((m*(w+gap),(fromIntegral c)*(h+(4*gap))),w,h) | m <- [0..fromIntegral (n-1)]]
+  where (w,h) = (50,50)
+        gap = 10
 
 genLineOfRects :: Int -> Int -> [String]
-genLineOfRects lin col = 
-  ["  " ++ svgRect (last (genRectsInLine l c)) (svgStyle (last (greenPalette (l+(2*c)))))  | l <- [1..lin], c <- [col]]
+genLineOfRects lin col = ["  " ++ svgRect (last (genRectsInLine l c)) (svgStyle (last (greenPalette (l+(2*c)))))  | l <- [1..lin], c <- [col]]
 
 genColumnsOfRects :: Int -> Int -> [[String]]
-genColumnsOfRects lin col =  
-  [genLineOfRects l c | l <- [lin], c <- [0..(col-1)]]
+genColumnsOfRects lin col =  [genLineOfRects l c | l <- [lin], c <- [0..(col-1)]]
 
 printRects :: Int -> Int -> String
-printRects l c = 
-  printf (unlines $ (concat (genColumnsOfRects l c)))
+printRects l c = printf (unlines $ (concat (genColumnsOfRects l c)))
 
 genCase1 :: IO ()
 genCase1 = do
@@ -106,8 +97,10 @@ genCase1 = do
 -------------------------------------------------------------------------------
 
 createCirc :: Float -> Int -> String
-createCirc r ncirc = 
-  printf (unlines $ ["   " ++ svgCircle ((x,y),10) (svgStyle (last (take (z+1) (hsvPalette ncirc)))) | z <- [0..(ncirc-1)], x <- [(r + 30) + (r * (cos((fromIntegral z)*2*pi/(fromIntegral ncirc))))], y <- [(r + 30) + (r * (sin((fromIntegral z)*2*pi/(fromIntegral ncirc))))]])
+createCirc r ncirc = printf (unlines $ ["   " ++ svgCircle ((x,y),10) (svgStyle (last (take (z+1) (hsvPalette ncirc)))) | z <- [0..(ncirc-1)], x <- [x0 + (r * (cos ((fromIntegral z)*rad)))], y <- [y0 + (r * (sin /((fromIntegral z)*rad)))]])
+    where rad = (2*pi/(fromIntegral ncirc))
+          x0 = 30 + r
+          y0 = 30 + r
 
 genCase2 :: IO()
 genCase2 = do
@@ -122,19 +115,20 @@ genCase2 = do
 -------------------------------------------------------------------------------
 
 circlePiramid :: Float -> Float -> [Circle]
-circlePiramid x0 y0 = 
-  [if n /= 0.5 then ((x0 + n*r, y0),r) else ((x0 + n*r, y0 - r),r) | n <- [0, 0.5, 1]]
+circlePiramid x0 y0 = [if n /= 0.5 then ((x0 + n*r, y0),r) else ((x0 + n*r, y0 - r),r) | n <- [0, 0.5, 1]]
     where r = 50
 
 circlePiramidMatrix :: Int -> Int -> [Circle]
-circlePiramidMatrix lin col = 
-  concat [(concat [circlePiramid (sp*col) (sp*lin) | col <- [1..fromIntegral col], lin <- [1..fromIntegral lin]])]
+circlePiramidMatrix lin col = concat [(concat [circlePiramid (sp*col) (sp*lin) | col <- [1..fromIntegral col], lin <- [1..fromIntegral lin]])]
     where sp = 160
+
+printCirclePiramids :: (a -> String -> String) -> [a] -> [String] -> String
+printCirclePiramids func circles style = concat $ zipWith func circles style
 
 genCase3 :: IO()
 genCase3 = do
   writeFile "case3.svg" $ svgstr3
-  where svgstr3 = svgBegin w h ++ svgElements svgCircle (circlePiramidMatrix l c) (map svgStyle (rgbPalette(l*c*3))) ++ svgEnd
+  where svgstr3 = svgBegin w h ++ printCirclePiramids svgCircle (circlePiramidMatrix l c)) (map svgStyle rgbPalette(l*c*3)) ++ svgEnd
         (w, h) = (1500, 500)
         r = 50
         l = 2
@@ -145,13 +139,13 @@ genCase3 = do
 -------------------------------------------------------------------------------
 
 sinCircs :: Float -> Int -> String
-sinCircs r ncirc = 
-  printf (unlines $ ["   " ++ svgCircle ((x,y),small_r) (svgStyle (if n == 1 then (last (redPalette (m + 1))) else if n == 2 then (last (greenPalette (m + 1))) else (last (bluePalette (m + 1))))) | m <- [0..ncirc+1], n <- [1,2,3], x <- [(x0 + (offset*(fromIntegral m)))], y <- [y0 * n + (r * (sin((fromIntegral m)*rad)))]])
-    where rad = (2*pi/(fromIntegral ncirc))
-          x0 = 50
-          y0 = 90
-          offset = 30
-          small_r = 20
+sinCircs r ncirc = printf (unlines $ ["   " ++ svgCircle ((x,y),small_r) style | m <- [0..ncirc+1], n <- [1,2,3], style <- defStyle, x <- [(x0 + (offset*(fromIntegral z)))], y <- [y0 * n + (r * (sin((fromIntegral z)*rad)))]])
+  where rad = (2*pi/(fromIntegral ncirc))
+        x0 = 50
+        yo = 90
+        offset = 30
+        style = svgStyle (last style)
+        defStyle = if n == 1 then redPalette (z+1) else if n == 2 then greenPalette(z+1) else bluePalette (z+1)
 
 genCase4 :: IO()
 genCase4 = do
@@ -161,11 +155,6 @@ genCase4 = do
         r = 50
         q = 12
 
--------------------------------------------------------------------------------
--- Executa todos os casos
--------------------------------------------------------------------------------
-
-main :: IO()
 main = do 
   putStrLn "I'm now generating all the .svg cases!"
   putStrLn "Their file names are 'case1.svg', 'case2.svg', 'case3.svg' and 'case4.svg'."

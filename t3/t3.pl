@@ -109,3 +109,14 @@ potencias_(NI,NF,[H|T]) :-
 
 potencias(N,L) :-
     potencias_(0,N,L).
+
+
+% ------------------- 12 -------------------
+
+cedulas(_,[],[]).
+cedulas(V,L1,L2) :-
+    L1 = [H1|T1],
+    L2 = [H2|T2],
+    H2 is div(V,H1),
+    NV is V - H2 * H1,
+    cedulas(NV,T1,T2).

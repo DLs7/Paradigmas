@@ -172,17 +172,21 @@ encoderu([_], []).
 encoderu([H1|T1], L2) :-
     (T1 \= [] -> string_concat(H1, "00", S), L2 = [S|T2], encoderu(T1, T2)).
 
+godIHateWorkingWithStringInProlog(S1, S2, H1) :-
+    split_string(S1, H1, "", L1),
+    encoderu(L1, L2),
+    last(L1, X),
+    Y = [X],
+    append(L2,Y,L3),
+    atomic_list_concat(L3, A),
+    atom_string(A, S2), !.
+
 betterEncodeName(S1, S2) :-
     string_chars(S1, L1),
     encoder_(L1, L2),
     string_chars(SAUX, L2),
-    split_string(SAUX, "u", "", L3),
-    encoderu(L3, L4),
-    last(L3, X),
-    Y = [X],
-    append(L4,Y,L5),
-    atomic_list_concat(L5, A),
-    atom_string(A, S2).
+    godIHateWorkingWithStringInProlog(SAUX, SAUX2, "u"),
+    godIHateWorkingWithStringInProlog(SAUX2, S2, "U").
     
 
     % ------------------- 12 -------------------

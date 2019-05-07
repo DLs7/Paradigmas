@@ -161,19 +161,19 @@ ciumes(X) :-
 
 % INSANIDADE
 % esse predicado nos dá aqueles com histórico de insanidade, uma das possíveis causas do crime.
-loucura(X) :-
+insanidade(X) :-
     insano(X).
 
 % DINHEIRO
 % a partir desse predicado, inferimos quais pessoas poderiam ter sido motivadas a cometer o crime por inveja do dinheiro de anita.
-ganancia(X) :-
+dinheiro(X) :-
     pobre(X).
 
 % DECISÃO FINAL
 motivo(X) :-
     ciumes(X);
-    loucura(X);
-    ganancia(X).
+    insanidade(X);
+    dinheiro(X).
 
 
 

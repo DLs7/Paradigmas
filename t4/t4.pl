@@ -133,7 +133,7 @@ martelo(X) :-
     estadia(X, apt, qua);
     estadia(X, apt, qui).
 
-%
+% aqui definimos que o suspeito poderia ter roubado ou o bastão ou o martelo.
 arma(X) :-
     bastao(X);
     martelo(X).
@@ -170,6 +170,7 @@ dinheiro(X) :-
     pobre(X).
 
 % DECISÃO FINAL
+% aqui definimos o motivo do crime.
 motivo(X) :-
     ciumes(X);
     insanidade(X);

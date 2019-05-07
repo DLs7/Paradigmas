@@ -2,6 +2,8 @@
 %        ~ essa aqui especificamente ~
 % ~ https://www.youtube.com/watch?v=jMbp1YGCoB4 ~
 
+
+
 % VÍTIMA DO CASO
 % essa é a nossa vítima, anita.
 % esse programa apresentará a possível solução para o seu cruel assassinato.
@@ -113,7 +115,6 @@ estadia(maria, apt, sex).
 
 
 % ASSASSINO
-
 % a partir desse predicado, podemos inferir quem estava no apartamento nos dias em que o assassinato possa ter ocorrido.
 apartamento(X) :-
     estadia(X, apt, qui), !;
@@ -122,7 +123,6 @@ apartamento(X) :-
 
 
 % ARMA
-
 % com esse predicado, inferimos qual dos suspeitos possa ter roubado o bastão, que é possivelmente uma arma do crime.
 bastao(X) :-
     estadia(X, sma, qua);
@@ -133,6 +133,7 @@ martelo(X) :-
     estadia(X, apt, qua);
     estadia(X, apt, qui).
 
+%
 arma(X) :-
     bastao(X);
     martelo(X).
@@ -140,17 +141,19 @@ arma(X) :-
 
 
 % CHAVE PARA O APARTAMENTO
-
 % com esse predicado, inferimos qual dos suspeitos possa ter roubado a chave que concedia acesso ao apartamento da vítima.
 chave(X) :-
     estadia(X, sma, seg);
     estadia(X, poa, ter).
 
+% bia não necessariamente roubou a chave, mas possui uma cópia dela.
+% essa informação pode ser de importância.
+chave(bia).
 
 
 % MOTIVAÇÃO
 
-% CIUMES
+% CIÚMES
 % a partir desse predicado, podemos definir a partir das relações dos nossos suspeitos, qual deles poderiam ter ciúmes de anita.
 ciumes(X) :-
     ligacao(anita, Y),
@@ -175,12 +178,13 @@ motivo(X) :-
 
 
 % RESOLUÇÃO
-
+% aqui definimos qual suspeito teve acesso ao apartamento, à arma e à chave no dia do crime.
 acesso(X) :-
     apartamento(X),
     arma(X),
     chave(X).
 
+% finalmente, definiremos o assassino, verificando se seus motivos são válidos e se o mesmo tem acesso ao apartamento de anita.
 assassino(X) :-
     motivo(X),
     acesso(X).

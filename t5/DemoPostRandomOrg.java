@@ -1,7 +1,23 @@
 import java.net.*;
 import java.io.*;
 
+import java.io.*;
+import java.util.*;
+
 public class DemoPostRandomOrg {
+
+  private int fileSize(File file) throws Exception {
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    String str = new String();
+
+    int linenumber = 0;
+    while ((str = br.readLine()) != null) {
+        names.add(str);
+        linenumber++;
+    }
+
+    return linenumber;
+}
 
   public static void main(String[] args) {
 
@@ -29,7 +45,7 @@ public class DemoPostRandomOrg {
       // do que aquela que um humano conseguiria reproduzir :-) 
       // Caso haja mau uso do serviço, o site random.org vai bloquear suas requisições.
       // Veja regras para clientes automatizados em: https://www.random.org/clients/
-      String data = "list=Fulano%0D%0ABeltrano%0D%0ASicrano&format=plain&rnd=new";
+      String data = "list=Fulano Silva%0D%0ABeltrano%0D%0ASicrano&format=plain&rnd=new";
       // Envia dados pela conexão aberta
       con.getOutputStream().write(data.getBytes("UTF-8"));
       System.out.println("Response code: " + con.getResponseCode());

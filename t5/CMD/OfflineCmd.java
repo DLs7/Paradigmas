@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class Offline {
+public class OfflineCmd {
     private int fileSize;
     private List<String> names = new ArrayList<String>();
 
-    public Offline(File file) throws Exception {
+    public OfflineCmd(File file) throws Exception {
         this.fileSize = fileSize(file);
     }
 

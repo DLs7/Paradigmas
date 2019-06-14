@@ -2,11 +2,11 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class Online {
+public class OnlineCmd {
     private int fileSize;
     private List<String> names = new ArrayList<String>();
 
-    public Online(File file) throws Exception {
+    public OnlineCmd(File file) throws Exception {
         this.fileSize = fileSize(file, names);
     }
 
@@ -102,7 +102,7 @@ public class Online {
 
         } catch (IOException e) {
             System.out.println("Usando metodo de embaralhamento offline. Conexao com 'random.org' nao pode ser estabelecida.");
-            Offline off = new Offline(file);
+            OfflineCmd off = new OfflineCmd(file);
             off.readFile(file);
         }
     }

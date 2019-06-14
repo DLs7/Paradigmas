@@ -20,7 +20,6 @@ public class RandomPickerGUI extends Application {
 
     OnlineGUI on;
     OfflineGUI off;
-    boolean isOnline;
     
     private String readFile(File file) {
         try{
@@ -100,22 +99,12 @@ public class RandomPickerGUI extends Application {
         b_shuffle.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if(!((textArea.getText()).isEmpty())){
-                    try {
-                        shuffle.setText("Shuffling through 'random.org'...");
-                        on = new OnlineGUI(textArea.getText());
-                        shuffle.setText(on.getText());
-                        b_next.setDisable(false);
-                       
-                        isOnline = true;
-
-                    } catch(Exception ex) {
-                        shuffle.setText("Could not connect to 'random.org'. Shuffling offline...");
-                        off = new OfflineGUI(textArea.getText());
-                        shuffle.setText(off.getText());
-                        b_next.setDisable(false);
-
-                        isOnline = false;
-                    }
+                    shuffle.setText("Shuffling through 'random.org'...");
+                    b_next.setDisable(true);
+                    on = new OnlineGUI(textArea.getText());
+                    shuffle.setText(on.getText());
+                    b_next.setDisable(false);
+                    b_next.setDisable(false);
 
                 } else {
                     shuffle.setText("Could not shuffle. Your input is blank.");
@@ -126,12 +115,7 @@ public class RandomPickerGUI extends Application {
 
         b_next.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                if(isOnline) {
-                    shuffle.setText(on.getNext(b_next)); 
-                }
-                else { 
-                    shuffle.setText(off.getNext(b_next)); 
-                }
+                shuffle.setText(on.getNext(b_next)); 
             }
         });
 

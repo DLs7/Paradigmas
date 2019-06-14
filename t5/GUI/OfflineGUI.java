@@ -12,13 +12,10 @@ public class OfflineGUI {
         readTextArea(string);
     }
 
-    public String getText(){
-        return result;
-    }
-
-    public String getNext(Button button){
-        next(button);
-        return result;
+    public List<String> getStringList(){
+        this.result = result.replace("\n", "").replace("\r", "");
+        stringList.add(0, this.result);
+        return stringList;
     }
 
     private void readTextArea(String string){
@@ -31,14 +28,5 @@ public class OfflineGUI {
         this.result = stringList.get(0) + "\n";
 
         stringList.remove(0);
-    }
-
-    private void next(Button button){
-        if(!(stringList.isEmpty())){
-            this.result = stringList.get(0) + "\n";
-            stringList.remove(0);
-        } else {
-            button.setDisable(true);
-        }
     }
 }

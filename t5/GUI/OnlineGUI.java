@@ -50,8 +50,9 @@ public class OnlineGUI {
         if(!(stringList.isEmpty())){
             this.result = stringList.get(0) + "\n";
             stringList.remove(0);
-        } else {
-            button.setDisable(true);
+            if(stringList.isEmpty()){
+                button.setDisable(true);
+            }
         }
     }
     
@@ -74,19 +75,28 @@ public class OnlineGUI {
 
             // Lê resposta, linha por linha
             String responseLine;
-            List<String> responseList = new ArrayList<String>();
+
+            stringList.clear();
 
             while ((responseLine = in.readLine()) != null) {
-                System.out.println(responseLine);
-                responseList.add(responseLine);
+                stringList.add(responseLine);
             }
 
-            System.arraycopy(responseLine, 0, stringList, 0, responseList.size());
+            System.out.println("Shuffling through 'random.org'...");
 
             in.close();
 
         } catch (IOException e) {
-            return;
+            String string = new String("");
+
+            for(int i = 0; i < fileSize; i++){
+                string = string + stringList.get(i) + "\n";
+            }
+
+            System.out.println("Shuffling offline...");
+
+            OfflineGUI off = new OfflineGUI(string);
+            this.stringList = off.getStringList();
         }
     }
 }

@@ -53,6 +53,8 @@ public class OnlineGUI {
             if(stringList.isEmpty()){
                 button.setDisable(true);
             }
+        } else {
+            button.setDisable(true);
         }
     }
     

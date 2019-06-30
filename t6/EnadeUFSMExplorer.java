@@ -152,7 +152,6 @@ public class EnadeUFSMExplorer extends Application {
         Label gabarito = new Label();
         Label fail = new Label();
 
-        ImageView imageView = new ImageView();
         TableView<DataEntry> table = new TableView<DataEntry>();
 
         // --------------------------------- VBOXs ---------------------------------
@@ -245,18 +244,6 @@ public class EnadeUFSMExplorer extends Application {
                     acertosRegiao.setText("Acertos regionais: " + selection.get7());
                     acertosBrasil.setText("Acertos nacionais: " + selection.get8());
                     dif.setText("Dif.: " + selection.get9());
-                    
-                    try (BufferedInputStream in = new BufferedInputStream(new URL(selection.get11()).openStream());
-                    FileOutputStream fileOutputStream = new FileOutputStream("img.png")) {
-                        fail.setText("");
-                        byte dataBuffer[] = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                            fileOutputStream.write(dataBuffer, 0, bytesRead);
-                        }
-                    } catch (IOException e) {
-                        fail.setText("\n\n\n\n\n\nNao ha imagem para esta questao.\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    }
 
                     window.initOwner(stage);
                     window.initModality(Modality.APPLICATION_MODAL); 
@@ -296,17 +283,74 @@ public class EnadeUFSMExplorer extends Application {
         readCSV();
     }
 
-    public void readCSV(){
-        // The name of the file to open.
-        String fileName = "enade.csv";
+        public String[] parseLine(String line) {
 
+        List<String> result = new ArrayList<>();
+        char separador = ',';
+        char aspas = '"';
+
+        if (line == null || line.isEmpty()) {
+            String[] simpleArray = new String[result.size()];
+            return result.toArray(simpleArray);
+        }
+
+        StringBuffer stringBuffer = new StringBuffer();
+        boolean entreAspas = false;
+        boolean pegarChars = false;
+
+        char[] chars = line.toCharArray();
+
+        for (char ch : chars) {
+
+            if (entreAspas) {
+                pegarChars = true;
+                if (ch == aspas) {
+                    entreAspas = false;
+                } else {
+
+                    stringBuffer.append(ch);
+
+                }
+            } else {
+                if (ch == aspas) {
+                    entreAspas = true;
+
+                    if (pegarChars) {
+                        stringBuffer.append('"');
+                    }
+
+                } else if (ch == separador) {
+
+                    result.add(stringBuffer.toString());
+
+                    stringBuffer = new StringBuffer();
+                    pegarChars = false;
+
+                } else if (ch == '\r') {
+                    continue;
+                } else if (ch == '\n') {
+                    break;
+                } else {
+                    stringBuffer.append(ch);
+                }
+            }
+
+        }
+
+        result.add(stringBuffer.toString());
+        
+        String[] simpleArray = new String[result.size()];
+        return result.toArray(simpleArray);
+    }
+
+    public void readCSV(){
         // This will reference one line at a time
         String line = null;
 
         try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader = 
-                new FileReader(fileName);
+                new FileReader(FILE_NAME);
 
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader = 
@@ -316,7 +360,8 @@ public class EnadeUFSMExplorer extends Application {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if(tokens[0].equals("CC")){
                     for(String t : tokens) {
-                        data.add(new DataEntry(tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], tokens[8], tokens[9], tokens[10], tokens[11], tokens[7], tokens[13]));
+                        data.add(new DataEntry(tokens[1], tokens[2], tokens[3], tokens[4], tokens[5],
+                        tokens[8], tokens[9], tokens[10], tokens[11], tokens[7], tokens[13]));
                     }
                 }
             }   

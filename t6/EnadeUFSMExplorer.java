@@ -12,6 +12,10 @@ import javafx.geometry.Insets;
 import javafx.stage.*;
 import javafx.scene.control.*;
 
+import javax.imageio.*;
+
+import java.awt.image.BufferedImage;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
@@ -154,6 +158,7 @@ public class EnadeUFSMExplorer extends Application {
 
         TableView<DataEntry> table = new TableView<DataEntry>();
 
+
         // --------------------------------- VBOXs ---------------------------------
 
 
@@ -226,6 +231,7 @@ public class EnadeUFSMExplorer extends Application {
         // --------------------------------- TABELA ---------------------------------
 
         setTable(table);
+        ImageView imageView = new ImageView();
 
         table.setRowFactory(tv -> {
             TableRow<DataEntry> row = new TableRow<>();
@@ -245,8 +251,22 @@ public class EnadeUFSMExplorer extends Application {
                     acertosBrasil.setText("Acertos nacionais: " + selection.get8());
                     dif.setText("Dif.: " + selection.get9());
 
-                    window.initOwner(stage);
-                    window.initModality(Modality.APPLICATION_MODAL); 
+                    BufferedImage image = null;
+                    try {
+                        URL url = new URL(selection.get11());
+                        image = ImageIO.read(url);
+                        ImageIO.write(image, "png", new File("img.png"));
+                    } catch (IOException e) {
+                    }
+
+                    try {
+                        imageView.setImage(new Image(new FileInputStream("img.png")));
+                        imageView.setFitWidth(screenSize_x * 0.55);
+                        imageView.setFitHeight(screenSize_y * 0.55);
+                        imageView.setPreserveRatio(true);
+                        
+                    } catch(FileNotFoundException e) {}
+
                     window.showAndWait();
                 }
             });
@@ -256,7 +276,7 @@ public class EnadeUFSMExplorer extends Application {
         // --------------------------------- WINDOW SETUP ---------------------------------
 
         img.setAlignment(Pos.CENTER);
-        img.getChildren().addAll(fail);
+        img.getChildren().addAll(imageView);
 
         info.setAlignment(Pos.BOTTOM_CENTER);
         info.getChildren().addAll(gabarito, ano, prova, tipoQuestao, idQuestao, objeto, acertosCurso, acertosRegiao, acertosBrasil, dif);
@@ -265,6 +285,8 @@ public class EnadeUFSMExplorer extends Application {
 
         window.setTitle("Dado selecionado");
         window.setScene(new Scene(vbWindow, windowSize_x, windowSize_y));
+        window.initOwner(stage);
+        window.initModality(Modality.APPLICATION_MODAL); 
 
         // --------------------------------- STAGE SETUP ---------------------------------
 
@@ -281,66 +303,6 @@ public class EnadeUFSMExplorer extends Application {
         stage.show();
 
         readCSV();
-    }
-
-        public String[] parseLine(String line) {
-
-        List<String> result = new ArrayList<>();
-        char separador = ',';
-        char aspas = '"';
-
-        if (line == null || line.isEmpty()) {
-            String[] simpleArray = new String[result.size()];
-            return result.toArray(simpleArray);
-        }
-
-        StringBuffer stringBuffer = new StringBuffer();
-        boolean entreAspas = false;
-        boolean pegarChars = false;
-
-        char[] chars = line.toCharArray();
-
-        for (char ch : chars) {
-
-            if (entreAspas) {
-                pegarChars = true;
-                if (ch == aspas) {
-                    entreAspas = false;
-                } else {
-
-                    stringBuffer.append(ch);
-
-                }
-            } else {
-                if (ch == aspas) {
-                    entreAspas = true;
-
-                    if (pegarChars) {
-                        stringBuffer.append('"');
-                    }
-
-                } else if (ch == separador) {
-
-                    result.add(stringBuffer.toString());
-
-                    stringBuffer = new StringBuffer();
-                    pegarChars = false;
-
-                } else if (ch == '\r') {
-                    continue;
-                } else if (ch == '\n') {
-                    break;
-                } else {
-                    stringBuffer.append(ch);
-                }
-            }
-
-        }
-
-        result.add(stringBuffer.toString());
-        
-        String[] simpleArray = new String[result.size()];
-        return result.toArray(simpleArray);
     }
 
     public void readCSV(){

@@ -142,7 +142,7 @@ public class EnadeUFSMExplorer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        //loadFile();
+        loadFile();
 
         Stage window = new Stage();
 

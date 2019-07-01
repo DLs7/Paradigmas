@@ -142,7 +142,7 @@ public class EnadeUFSMExplorer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        loadFile();
+        //loadFile();
 
         Stage window = new Stage();
 
@@ -261,20 +261,45 @@ public class EnadeUFSMExplorer extends Application {
                     } catch (IOException e) {
                     }
 
+                    InputStream stream = null;
                     try {
-                        imageView.setImage(new Image(new FileInputStream("img.png")));
+                        stream = new FileInputStream("img.png");
+                        imageView.setImage(new Image(stream));
                         imageView.setFitWidth(screenSize_x * 0.55);
                         imageView.setFitHeight(screenSize_y * 0.55);
                         imageView.setPreserveRatio(true);
                         
                     } catch (FileNotFoundException e) {
                         try {
-                            imageView.setImage(new Image(new FileInputStream("error.png")));
+                            stream = new FileInputStream("error.png");
+                            imageView.setImage(new Image(stream));
                             imageView.setFitWidth(screenSize_x * 0.55);
                             imageView.setFitHeight(screenSize_y * 0.55);
                             imageView.setPreserveRatio(true);
                         } catch (FileNotFoundException ex) {}
+                    } finally {
+                        if (stream != null) {
+                            try {
+                                stream.close();
+                            } catch (IOException ex) {}
+                        }
                     }
+
+                    try{
+    		
+                        File f = new File("img.png");
+                        
+                        if(f.delete()){
+                            System.out.println(f.getName() + " is deleted!");
+                        }else{
+                            System.out.println("Delete operation is failed.");
+                        }                  
+                    }catch(Exception e){
+                        
+                        e.printStackTrace();
+                        
+                    }
+                    
 
                     window.showAndWait();
                 }
@@ -327,15 +352,49 @@ public class EnadeUFSMExplorer extends Application {
             String[] nextRecord; 
           
             // we are going to read data line by line 
-            while ((nextRecord = csvReader.readNext()) != null) { 
-                data.add(new DataEntry(nextRecord[1], nextRecord[2], nextRecord[3], nextRecord[4], nextRecord[5],
-                nextRecord[8], nextRecord[9], nextRecord[10], nextRecord[11], nextRecord[7], nextRecord[13]));
+            while ((nextRecord = csvReader.readNext()) != null) {
+                if(nextRecord[0].equals("CC")){
+                    data.add(new DataEntry(nextRecord[1], nextRecord[2], nextRecord[3], nextRecord[4], nextRecord[5],
+                    nextRecord[8], nextRecord[9], nextRecord[10], nextRecord[11], nextRecord[7], nextRecord[13]));
+                }
             } 
 
             csvReader.close();
         } 
         catch (Exception e) { 
-            e.printStackTrace(); 
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Exception");
+            alert.setHeaderText("Sua arquivo nao existe ou nao pode ser lido.");
+            alert.setContentText("Nao foi possivel abrir/ler um .csv a partir do arquivo " + FILE_NAME);
+
+            Exception ex = new FileNotFoundException("Nao foi possivel abrir/ler um .csv a partir do arquivo " + FILE_NAME);
+
+            // Create expandable Exception.
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ex.printStackTrace(pw);
+            String exceptionText = sw.toString();
+
+            Label label = new Label("The exception stacktrace was:");
+
+            TextArea textArea = new TextArea(exceptionText);
+            textArea.setEditable(false);
+            textArea.setWrapText(true);
+
+            textArea.setMaxWidth(Double.MAX_VALUE);
+            textArea.setMaxHeight(Double.MAX_VALUE);
+            GridPane.setVgrow(textArea, Priority.ALWAYS);
+            GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+            GridPane expContent = new GridPane();
+            expContent.setMaxWidth(Double.MAX_VALUE);
+            expContent.add(label, 0, 0);
+            expContent.add(textArea, 0, 1);
+
+            // Set expandable Exception into the dialog pane.
+            alert.getDialogPane().setExpandableContent(expContent);
+
+            alert.showAndWait();
         }
     }
 

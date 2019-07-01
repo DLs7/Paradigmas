@@ -286,7 +286,6 @@ public class EnadeUFSMExplorer extends Application {
                     }
 
                     try{
-    		
                         File f = new File("img.png");
                         
                         if(f.delete()){
@@ -295,9 +294,7 @@ public class EnadeUFSMExplorer extends Application {
                             System.out.println("Delete operation is failed.");
                         }                  
                     }catch(Exception e){
-                        
                         e.printStackTrace();
-                        
                     }
                     
 
@@ -355,7 +352,7 @@ public class EnadeUFSMExplorer extends Application {
             while ((nextRecord = csvReader.readNext()) != null) {
                 if(nextRecord[0].equals("CC")){
                     data.add(new DataEntry(nextRecord[1], nextRecord[2], nextRecord[3], nextRecord[4], nextRecord[5],
-                    nextRecord[8], nextRecord[9], nextRecord[10], nextRecord[11], nextRecord[7], nextRecord[13]));
+                    nextRecord[8], nextRecord[9], nextRecord[10], nextRecord[11], nextRecord[7], nextRecord[17]));
                 }
             } 
 

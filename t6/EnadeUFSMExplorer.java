@@ -25,6 +25,8 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import com.opencsv.*;
+
 public class EnadeUFSMExplorer extends Application {
     private int screenSize_x = 1280;
     private int screenSize_y = 720;
@@ -265,7 +267,14 @@ public class EnadeUFSMExplorer extends Application {
                         imageView.setFitHeight(screenSize_y * 0.55);
                         imageView.setPreserveRatio(true);
                         
-                    } catch(FileNotFoundException e) {}
+                    } catch (FileNotFoundException e) {
+                        try {
+                            imageView.setImage(new Image(new FileInputStream("error.png")));
+                            imageView.setFitWidth(screenSize_x * 0.55);
+                            imageView.setFitHeight(screenSize_y * 0.55);
+                            imageView.setPreserveRatio(true);
+                        } catch (FileNotFoundException ex) {}
+                    }
 
                     window.showAndWait();
                 }
@@ -306,100 +315,27 @@ public class EnadeUFSMExplorer extends Application {
     }
 
     public void readCSV(){
-        // This will reference one line at a time
-        String line = null;
+        try { 
+  
+            // Create an object of filereader 
+            // class with CSV file as a parameter. 
+            FileReader filereader = new FileReader(FILE_NAME); 
+          
+            // create csvReader object passing 
+            // file reader as a parameter 
+            CSVReader csvReader = new CSVReader(filereader); 
+            String[] nextRecord; 
+          
+            // we are going to read data line by line 
+            while ((nextRecord = csvReader.readNext()) != null) { 
+                data.add(new DataEntry(nextRecord[1], nextRecord[2], nextRecord[3], nextRecord[4], nextRecord[5],
+                nextRecord[8], nextRecord[9], nextRecord[10], nextRecord[11], nextRecord[7], nextRecord[13]));
+            } 
 
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader = 
-                new FileReader(FILE_NAME);
-
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = 
-                new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
-                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if(tokens[0].equals("CC")){
-                    for(String t : tokens) {
-                        data.add(new DataEntry(tokens[1], tokens[2], tokens[3], tokens[4], tokens[5],
-                        tokens[8], tokens[9], tokens[10], tokens[11], tokens[7], tokens[13]));
-                    }
-                }
-            }   
-
-            // Always close files.
-            bufferedReader.close();         
-        }
-        catch(FileNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Exception");
-            alert.setHeaderText("Seu arquivo de entrada nao existe");
-            alert.setContentText("Nao foi possivel abrir um .csv atraves do path ./" + FILE_NAME);
-
-            Exception ex = new FileNotFoundException("Nao foi possivel abrir um .csv atraves do path ./" + FILE_NAME);
-
-            // Create expandable Exception.
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ex.printStackTrace(pw);
-            String exceptionText = sw.toString();
-
-            Label label = new Label("The exception stacktrace was:");
-
-            TextArea textArea = new TextArea(exceptionText);
-            textArea.setEditable(false);
-            textArea.setWrapText(true);
-
-            textArea.setMaxWidth(Double.MAX_VALUE);
-            textArea.setMaxHeight(Double.MAX_VALUE);
-            GridPane.setVgrow(textArea, Priority.ALWAYS);
-            GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-            GridPane expContent = new GridPane();
-            expContent.setMaxWidth(Double.MAX_VALUE);
-            expContent.add(label, 0, 0);
-            expContent.add(textArea, 0, 1);
-
-            // Set expandable Exception into the dialog pane.
-            alert.getDialogPane().setExpandableContent(expContent);
-
-            alert.showAndWait();             
-        }
-        catch(IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Exception");
-            alert.setHeaderText("Erro ao ler o arquivo.");
-            alert.setContentText("Ocorreu um erro ao ler o .csv atraves do path ./" + FILE_NAME);
-
-            Exception ex = new FileNotFoundException("Nao foi possível baixar um .csv a partir da URL " + FILE_URL);
-
-            // Create expandable Exception.
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ex.printStackTrace(pw);
-            String exceptionText = sw.toString();
-
-            Label label = new Label("The exception stacktrace was:");
-
-            TextArea textArea = new TextArea(exceptionText);
-            textArea.setEditable(false);
-            textArea.setWrapText(true);
-
-            textArea.setMaxWidth(Double.MAX_VALUE);
-            textArea.setMaxHeight(Double.MAX_VALUE);
-            GridPane.setVgrow(textArea, Priority.ALWAYS);
-            GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-            GridPane expContent = new GridPane();
-            expContent.setMaxWidth(Double.MAX_VALUE);
-            expContent.add(label, 0, 0);
-            expContent.add(textArea, 0, 1);
-
-            // Set expandable Exception into the dialog pane.
-            alert.getDialogPane().setExpandableContent(expContent);
-
-            alert.showAndWait();
+            csvReader.close();
+        } 
+        catch (Exception e) { 
+            e.printStackTrace(); 
         }
     }
 

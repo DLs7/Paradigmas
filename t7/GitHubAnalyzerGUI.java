@@ -32,7 +32,7 @@ public class GitHubAnalyzerGUI extends Application{
     }
 
     @SuppressWarnings("unchecked")
-    public void setTable(TableView<GitHubData> table, ObservableList<GitHubData> data) {
+    public void setTable(TableView<GitHubData> table) {
 
         TableColumn<GitHubData,String> authorCol = new TableColumn<GitHubData,String>("Author");
         TableColumn<GitHubData,String> dateCol = new TableColumn<GitHubData,String>("Date");
@@ -51,7 +51,6 @@ public class GitHubAnalyzerGUI extends Application{
         linkCol.setCellValueFactory(
         new PropertyValueFactory<GitHubData,String>("Link"));
 
-        table.setItems(data);
         table.getColumns().addAll(authorCol, dateCol, messageCol, repositoryCol, linkCol);
 
         authorCol.prefWidthProperty().bind(table.widthProperty().divide(5));
@@ -62,6 +61,16 @@ public class GitHubAnalyzerGUI extends Application{
 
         table.setPrefSize(screenSize_x, screenSize_y);
 
+        DataThread dataThread = new DataThread(new ArrayList<GitHubData>());
+		GitHubRequisitor requisitor = new GitHubRequisitor(dataThread, filetorequestfrom);
+
+		System.out.println("Starting Requests");
+
+		requisitor.start();
+        dataThread.conditionWait();
+
+        table.setItems(FXCollections.observableArrayList(dataThread.data));
+
     }
 
     @Override
@@ -70,7 +79,7 @@ public class GitHubAnalyzerGUI extends Application{
         VBox vbTable = new VBox();
 
         table = new TableView<GitHubData>();
-        setTable(table, null);
+        //setTable(table);
 
         MenuBar menuBar = new MenuBar();
 
@@ -101,7 +110,7 @@ public class GitHubAnalyzerGUI extends Application{
         MenuItem menuItem3 = new MenuItem("Commit Analyzer");
         menuItem3.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                feedTable("https://api.github.com/repos/DLs7/Paradigmas/commits");
+                setTable(table);
             }
         });
 
@@ -137,17 +146,4 @@ public class GitHubAnalyzerGUI extends Application{
         stage.setScene(new Scene(root, screenSize_x, screenSize_y));
         stage.show();
     }
-
-	public synchronized void feedTable(String url) {
-		DataThread data = new DataThread(new ArrayList<GitHubData>());
-		
-		GitHubRequisitor requisitor = new GitHubRequisitor(data, filetorequestfrom);
-
-		System.out.println("Starting Requests");
-
-		requisitor.start();
-        data.conditionWait();
-        
-        setTable(table, FXCollections.observableArrayList(data.data));
-	}
 }

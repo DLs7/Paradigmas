@@ -17,11 +17,13 @@ public class GitHubData {
 
     public GitHubData(String author, String date, 
     String message, String repository, String link) {
+      
       this.author = new SimpleStringProperty(author);
       this.date = new SimpleStringProperty(date);
       this.message = new SimpleStringProperty(message);
       this.repository = new SimpleStringProperty(repository);
       this.link = new SimpleStringProperty(link);
+      
     }
 
     public SimpleStringProperty propertyAuthor() {

@@ -49,21 +49,24 @@ public class GitHubRequisitor extends Thread {
 
 		for(String rep : repos) {
 			System.out.println("Analyzing rep: " + rep);
-			data.data.add(getData(rep));
+      for(GitHubData d : getData(rep)){
+        data.data.add(d);
+      }
     }
     
 		data.conditionNotify();
 	}
 
 
-  public GitHubData getData(String rep) {
+  public ArrayList<GitHubData> getData(String rep) {
+    ArrayList<GitHubData> info = new ArrayList<GitHubData>();
+
     String urlbase = rep;
     String firstcommitdata = "";
     String lastcommitdata = "";    
     Integer requestNumber = 1;
     Integer totalcommits = 0;
     Integer totalmsglength = 0;
-    String repname = getRepName(rep);
 
     String author = "";
     String date = "";
@@ -74,6 +77,7 @@ public class GitHubRequisitor extends Thread {
     Boolean reachedEnd = false;
 
     while(!reachedEnd) {
+      urlbase.replace(" ", "");
       String urltorequest = urlbase + requestNumber.toString();
       
       try {
@@ -97,45 +101,37 @@ public class GitHubRequisitor extends Thread {
           
           author = 
           e.getAsJsonObject().get("commit")
-          .getAsJsonObject().get("author").getAsString();
+          .getAsJsonObject().get("author")
+          .getAsJsonObject().get("name").toString().replace("\"", "");
 
           date = 
           e.getAsJsonObject().get("commit")
           .getAsJsonObject().get("author")
-          .getAsJsonObject().get("date").getAsString();
+          .getAsJsonObject().get("date").toString().replace("\"", "");
 
           message = 
           e.getAsJsonObject().get("commit")
-          .getAsJsonObject().get("message").getAsString();
+          .getAsJsonObject().get("message").toString().replace("\"", "");
 
           repository = "";
 
           link = 
           e.getAsJsonObject().get("commit")
-          .getAsJsonObject().get("link").getAsString();
+          .getAsJsonObject().get("url").toString().replace("\"", "");
+
+          info.add(new GitHubData(author, date, message, repository, link));
         } 
 
         in.close();
       
-      }catch(IOException e) { 
-        System.out.println("Error while getting repository data");
+      } catch(IOException e) { 
+        e.printStackTrace();
         reachedEnd = true;
       }
 
       requestNumber++;
     }
-    /*Float f = (float)totalmsglength/totalcommits;
-    String mediatammsg = f.toString();*/
     System.out.println("Finish request from " + urlbase);
-    return new GitHubData(author, date, message, repository, link);
+    return info;
   }
-
-  private String getRepName(String rep) {
-		String[] urlparts = rep.split("/");
-		System.out.println(urlparts);
-		try {
-			return urlparts[6];
-		}catch(IndexOutOfBoundsException e) {System.out.println("Error while getting rep name");}
-		return "ERROR NAME";
-	}
 }

@@ -3,12 +3,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.geometry.Pos;
-import javafx.geometry.Insets;
 import javafx.stage.*;
 import javafx.scene.control.*;
 
@@ -16,7 +14,6 @@ import javax.imageio.*;
 
 import java.awt.image.BufferedImage;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

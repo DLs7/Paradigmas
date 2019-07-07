@@ -14,8 +14,6 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-import java.util.concurrent.TimeUnit;
-
 public class RandomPickerGUI extends Application {
 
     OnlineGUI on;

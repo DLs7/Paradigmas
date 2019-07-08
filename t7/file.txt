@@ -1,1 +1,2 @@
-https://api.github.com/repos/DLs7/Paradigmas/commits?page=
+https://api.github.com/repos/DLs7/Paradigmas/commits?page=1
+https://api.github.com/repos/AndreaInfUFSM/elc117-2019a/commits?page=1

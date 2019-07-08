@@ -24,8 +24,10 @@ public class GitHubAnalyzerGUI extends Application{
     private final int screenSize_y = 720;
 
     private TableView<GitHubData> table;
+    private ArrayList<GitHubData> dataStore;
 
-    private File filetorequestfrom;
+    private File requestFile;
+
 
     public static void main(String args[]) {
         launch(args);
@@ -61,28 +63,77 @@ public class GitHubAnalyzerGUI extends Application{
 
         table.setPrefSize(screenSize_x, screenSize_y);
 
-        DataThread dataThread = new DataThread(new ArrayList<GitHubData>());
-		GitHubRequisitor requisitor = new GitHubRequisitor(dataThread, filetorequestfrom);
+        if(requestFile != null){
+            DataThread dataThread = new DataThread(new ArrayList<GitHubData>());
+            GitHubRequisitor requisitor = new GitHubRequisitor(dataThread, requestFile);
 
-		System.out.println("Starting Requests");
+            System.out.println("Starting Requests");
 
-		requisitor.start();
-        dataThread.conditionWait();
+            requisitor.start();
+            dataThread.conditionWait();
+            
+            dataStore = dataThread.data;
+            table.setItems(FXCollections.observableArrayList(dataThread.data));
 
-        table.setItems(FXCollections.observableArrayList(dataThread.data));
+        } else {
+            table.setItems(FXCollections.observableArrayList());
+        }
 
     }
 
     @Override
     public void start(Stage stage){
+        Stage window = new Stage();
+
+        Label avgMessage = new Label();
+        Label commitNumber = new Label();
+
         VBox vbMenu = new VBox();
         VBox vbTable = new VBox();
+        VBox vbWindow = new VBox();
+        VBox vbInfo = new VBox();
 
         table = new TableView<GitHubData>();
-        //setTable(table);
+        setTable(table);
+
+        table.setRowFactory(tv-> {
+            TableRow<GitHubData> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    GitHubData selection = table.getSelectionModel().getSelectedItem();
+
+                    int messageCount = 0;
+                    int commitCount = 0;
+
+                    for(GitHubData d : dataStore) {
+                        if((d.propertyRepository()).toString().equals((selection.propertyRepository()).toString())){
+                            messageCount += d.propertyMessage().get().length();
+                            commitCount++;
+                        }
+                    }
+
+                    float averageMessage = (float) messageCount/commitCount;
+
+                    avgMessage.setText("\n\n\nMedia de caracteres: " + Float.toString(averageMessage));
+                    commitNumber.setText("Total de commits: " + commitCount);
+
+                    window.showAndWait();
+                }
+            });
+            return row;
+        });
+
+        vbInfo.setAlignment(Pos.CENTER);
+        vbInfo.getChildren().addAll(avgMessage, commitNumber);
+
+        vbWindow.getChildren().addAll(vbInfo);
+
+        window.setTitle("Dado selecionado");
+        window.setScene(new Scene(vbWindow, 240, 180));
+        window.initOwner(stage);
+        window.initModality(Modality.APPLICATION_MODAL);
 
         MenuBar menuBar = new MenuBar();
-
         final Menu menu1 = new Menu("File");
 
         MenuItem menuItem1 = new MenuItem("Open");
@@ -93,7 +144,7 @@ public class GitHubAnalyzerGUI extends Application{
                 fileChooser.setTitle("Select a file");
                 File file = fileChooser.showOpenDialog(stage);
                 if(file != null)
-			        filetorequestfrom = file;
+			        requestFile = file;
             }
         });
 

@@ -8,15 +8,13 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-// javac -cp .:gson-2.8.5.jar DemoParseGithubWithGson.java
-// java -cp .:gson-2.8.5.jar DemoParseGithubWithGson
-
 public class GitHubRequisitor extends Thread {
 
   private DataThread data;
   private File file;
 
   private String url;
+
 
   public GitHubRequisitor(DataThread data, File file) {
     this.data = data;
@@ -54,7 +52,8 @@ public class GitHubRequisitor extends Thread {
       }
     }
     
-		data.conditionNotify();
+    data.conditionNotify();
+    
 	}
 
 
@@ -62,11 +61,9 @@ public class GitHubRequisitor extends Thread {
     ArrayList<GitHubData> info = new ArrayList<GitHubData>();
 
     String urlbase = rep;
-    String firstcommitdata = "";
-    String lastcommitdata = "";    
     Integer requestNumber = 1;
-    Integer totalcommits = 0;
-    Integer totalmsglength = 0;
+    Integer allCommits = 0;
+    Integer allMsgLength = 0;
 
     String author = "";
     String date = "";
@@ -78,9 +75,13 @@ public class GitHubRequisitor extends Thread {
 
     while(!reachedEnd) {
       urlbase.replace(" ", "");
-      String urltorequest = urlbase + requestNumber.toString();
+
+      String[] splittedurl = urlbase.split("\\?");
+
+      String urltorequest = splittedurl[0] + "?page=" + requestNumber.toString();
       
       try {
+        System.out.println(urltorequest);
         URL url = new URL(urltorequest);
       
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -95,7 +96,7 @@ public class GitHubRequisitor extends Thread {
           reachedEnd = true;
         } 
         
-        totalcommits += results.size();
+        allCommits += results.size();
         
         for (JsonElement e : results) {
           
@@ -113,7 +114,15 @@ public class GitHubRequisitor extends Thread {
           e.getAsJsonObject().get("commit")
           .getAsJsonObject().get("message").toString().replace("\"", "");
 
-          repository = "";
+          allMsgLength += message.length();
+
+          String[] slashes = rep.split("/");
+          
+          try {
+			      repository =  slashes[5];
+		      }catch(IndexOutOfBoundsException ex) {
+            repository = "ERROR NAME";
+          }
 
           link = 
           e.getAsJsonObject().get("commit")

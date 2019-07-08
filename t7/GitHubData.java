@@ -39,10 +39,10 @@ public class GitHubData {
     public SimpleStringProperty propertyDate() {
         return date;
       }
-      public String getdate() {
+      public String getDate() {
         return date.get();
       }
-      public void setdate(String d) {
+      public void setDate(String d) {
          date.set(d);
     }
 
